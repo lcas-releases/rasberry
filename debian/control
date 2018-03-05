@@ -1,0 +1,12 @@
+Source: ros-kinetic-rasberry-gazebo
+Section: misc
+Priority: extra
+Maintainer: marc <marc@todo.todo>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin, ros-kinetic-gazebo-plugins, ros-kinetic-gazebo-ros, ros-kinetic-geometry-msgs, ros-kinetic-rospy, ros-kinetic-std-msgs
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-rasberry-gazebo
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, gazebo7, ros-kinetic-gazebo-plugins, ros-kinetic-gazebo-ros, ros-kinetic-geometry-msgs, ros-kinetic-rospy, ros-kinetic-std-msgs
+Description: The rasberry_gazebo package

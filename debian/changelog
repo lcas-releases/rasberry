@@ -1,0 +1,8 @@
+ros-kinetic-rasberry-gazebo (0.0.1-0xenial) xenial; urgency=high
+
+  * skeleton for RASberry simulation
+  * Contributors: Marc Hanheide
+
+ -- marc <marc@todo.todo>  Mon, 05 Mar 2018 00:00:00 -0000
+
+
