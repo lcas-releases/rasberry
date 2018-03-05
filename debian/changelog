@@ -1,0 +1,8 @@
+ros-kinetic-rasberry (0.0.1-0xenial) xenial; urgency=high
+
+  * added meta package
+  * Contributors: Marc Hanheide
+
+ -- Marc Hanheide <marc@hanheide.net>  Mon, 05 Mar 2018 00:00:00 -0000
+
+
