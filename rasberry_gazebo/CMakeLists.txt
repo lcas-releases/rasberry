@@ -8,6 +8,8 @@ project(rasberry_gazebo)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  thorvald_gazebo_plugins
+  thorvald_model
   gazebo_ros
   gazebo_plugins
   geometry_msgs
@@ -17,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(gazebo REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -105,10 +107,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES rasberry_gazebo
-#  CATKIN_DEPENDS gazebo gazebo_plugins geometry_msgs rospy std_msgs
-#  DEPENDS system_lib
+  DEPENDS
+    gazebo_ros 
 )
 
 ###########
