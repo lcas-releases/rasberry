@@ -1,0 +1,12 @@
+Source: ros-kinetic-rasberry
+Section: misc
+Priority: extra
+Maintainer: Marc Hanheide <marc@hanheide.net>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin, ros-kinetic-rasberry-des, ros-kinetic-rasberry-gazebo, ros-kinetic-rasberry-navigation, ros-kinetic-thorvald-model
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-rasberry
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-rasberry-des, ros-kinetic-rasberry-gazebo, ros-kinetic-rasberry-navigation, ros-kinetic-thorvald-model
+Description: The rasberry package
