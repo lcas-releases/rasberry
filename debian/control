@@ -1,0 +1,12 @@
+Source: ros-kinetic-rasberry-actors
+Section: misc
+Priority: extra
+Maintainer: Marc Hanheide <marc@hanheide.net>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-amcl, ros-kinetic-catkin, ros-kinetic-fake-localization, ros-kinetic-geometry-msgs, ros-kinetic-map-server, ros-kinetic-move-base, ros-kinetic-razor-imu-9dof, ros-kinetic-robot-localization, ros-kinetic-rospy, ros-kinetic-std-msgs, ros-kinetic-tf
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-rasberry-actors
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-amcl, ros-kinetic-fake-localization, ros-kinetic-geometry-msgs, ros-kinetic-map-server, ros-kinetic-move-base, ros-kinetic-razor-imu-9dof, ros-kinetic-robot-localization, ros-kinetic-rospy, ros-kinetic-std-msgs, ros-kinetic-tf
+Description: The rasberry_actors package
