@@ -5,7 +5,6 @@ project(rasberry_gazebo)
 # add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
-  gazebo_ros
   gazebo_plugins
   rospy
 )
@@ -101,8 +100,6 @@ find_package(gazebo REQUIRED)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  DEPENDS
-    gazebo_ros 
 )
 
 ###########
