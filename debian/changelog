@@ -1,0 +1,39 @@
+ros-kinetic-rasberry-bringup (0.0.4-0xenial) xenial; urgency=high
+
+  * Added simulation with velodyne and kinect2, rviz config file to visualize them and changed actor to use gpu based simulated laser
+  * Changing topological map name
+  * adding simulation start-up script
+  * Contributors: Jaime Pulido Fentanes, mailto:mfernandezcarmona@lincoln.ac.uk
+
+ -- adam <adam@todo.todo>  Tue, 17 Jul 2018 23:00:00 -0000
+
+ros-kinetic-rasberry-bringup (0.0.3-0xenial) xenial; urgency=high
+
+  * equal versions
+  * Can specify starting pose in rasberry_bringup/launch/rasberry_simulation.launch
+  * should work now ...
+  * Seperated the gazebo world with polytunnels and actor spawning into seperate packages (rasberry_gazebo and actor_gazebo, respectively).
+    There is also a rasberry_bringup package that launches everything together
+  * Contributors: Marc Hanheide, adambinch
+  * equal versions
+  * Can specify starting pose in rasberry_bringup/launch/rasberry_simulation.launch
+  * should work now ...
+  * Seperated the gazebo world with polytunnels and actor spawning into seperate packages (rasberry_gazebo and actor_gazebo, respectively).
+    There is also a rasberry_bringup package that launches everything together
+  * Contributors: Marc Hanheide, adambinch
+
+ -- adam <adam@todo.todo>  Sun, 15 Jul 2018 23:00:00 -0000
+
+ros-kinetic-rasberry-bringup (0.0.2-0xenial) xenial; urgency=high
+
+
+
+ -- adam <adam@todo.todo>  Sun, 20 May 2018 23:00:00 -0000
+
+ros-kinetic-rasberry-bringup (0.0.1-0xenial) xenial; urgency=high
+
+
+
+ -- adam <adam@todo.todo>  Mon, 05 Mar 2018 00:00:00 -0000
+
+
