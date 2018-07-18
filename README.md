@@ -1,2 +1,0 @@
-# RASBerry
-RASberry specific repository
