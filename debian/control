@@ -1,0 +1,12 @@
+Source: ros-kinetic-rasberry-people-perception
+Section: misc
+Priority: extra
+Maintainer: vicky <vicky@todo.todo>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin, ros-kinetic-geometry-msgs, ros-kinetic-marvelmind-nav, ros-kinetic-roscpp, ros-kinetic-rospy, ros-kinetic-std-msgs, ros-kinetic-strands-navigation-msgs, ros-kinetic-tf, ros-kinetic-topological-navigation
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-rasberry-people-perception
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-geometry-msgs, ros-kinetic-marvelmind-nav, ros-kinetic-roscpp, ros-kinetic-rospy, ros-kinetic-std-msgs, ros-kinetic-strands-navigation-msgs, ros-kinetic-tf, ros-kinetic-topological-navigation
+Description: The rasberry_people_perception package
