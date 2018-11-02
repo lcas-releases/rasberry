@@ -1,0 +1,12 @@
+Source: ros-kinetic-rasberry-move-base
+Section: misc
+Priority: extra
+Maintainer: Jaime Pulido Fentanes <jpulidofentanes@lincoln.ac.uk>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-amcl, ros-kinetic-catkin, ros-kinetic-dwa-local-planner, ros-kinetic-eband-local-planner, ros-kinetic-map-server, ros-kinetic-move-base, ros-kinetic-robot-pose-publisher, ros-kinetic-teb-local-planner, ros-kinetic-tf
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-rasberry-move-base
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-amcl, ros-kinetic-dwa-local-planner, ros-kinetic-eband-local-planner, ros-kinetic-map-server, ros-kinetic-move-base, ros-kinetic-robot-pose-publisher, ros-kinetic-teb-local-planner, ros-kinetic-tf
+Description: The rasberry_move_base package
