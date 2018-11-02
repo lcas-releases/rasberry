@@ -32,15 +32,15 @@ tmux send-keys "echo 'mongodb'" C-m
 tmux send-keys "roslaunch mongodb_store mongodb_store.launch db_path:=$1"
 tmux select-pane -t 1
 tmux send-keys "echo 'topological map server'" C-m
-tmux send-keys "roslaunch rasberry_navigation topological_map_manager_central.launch map:=riseholme"
+tmux send-keys "roslaunch rasberry_navigation topological_map_manager_central.launch map:=norway_poles"
 
 tmux select-window -t $SESSION:2
 tmux send-keys "echo 'robot localisation'" C-m
-tmux send-keys "DISPLAY=:$DISPLAY roslaunch rasberry_bringup robot_bringup.launch robot_model:=$(rospack find rasberry_bringup)/config/norway_robot_"$ROBOT_NO".yaml model_extras:=$(rospack find rasberry_bringup)/urdf/norway_robot_"$ROBOT_NO"_sim_sensors.xacro simple_sim:=true world_name:=riseholme with_actors:=false"
+tmux send-keys "DISPLAY=:$DISPLAY roslaunch rasberry_bringup robot_bringup.launch robot_model:=$(rospack find rasberry_bringup)/config/robot_"$ROBOT_NO".yaml model_extras:=$(rospack find rasberry_bringup)/urdf/robot_"$ROBOT_NO"_sim_sensors.xacro simple_sim:=true world_name:=norway_poles with_actors:=false"
 
 tmux select-window -t $SESSION:3
 tmux send-keys "echo '2D map server'" C-m
-tmux send-keys "roslaunch rasberry_move_base map_server.launch map:=$(rospack find rasberry_navigation)/maps/riseholme_sim.yaml"
+tmux send-keys "roslaunch rasberry_move_base map_server.launch map:=$(rospack find rasberry_navigation)/maps/norway_poles.yaml"
 
 tmux select-window -t $SESSION:4
 tmux send-keys "echo 'robot localisation'" C-m
@@ -56,15 +56,21 @@ tmux send-keys "roslaunch rasberry_navigation topological_navigation_robot.launc
 
 tmux select-window -t $SESSION:7
 tmux send-keys "echo 'rviz'" C-m
-tmux send-keys "DISPLAY=:$DISPLAY rosrun rviz rviz -d $(rospack find rasberry_bringup)/resources/topological_navigation.rviz"
+tmux send-keys "DISPLAY=:$DISPLAY rosrun rviz rviz -d $(rospack find rasberry_bringup)/resources/topological_navigation_norway_poles.rviz"
 
 tmux select-window -t $SESSION:8
+tmux split-window -h
+tmux select-pane -t 0
 tmux split-window -v
 tmux select-pane -t 0
 tmux send-keys "echo 'mimic marvelmind_nav/hedge_rcv_bin or run that node if available'" C-m
 tmux send-keys "echo 'rosrun marvelmind_nav hedge_rcv_bin'" C-m
-tmux send-keys "rostopic pub -r 10 /hedge_pos_a marvelmind_nav/hedge_pos_a -- '1' '0' '2.0' '4.0' '0.0' '0'"
+tmux send-keys "rostopic pub -r 10 /hedge_pos_a marvelmind_nav/hedge_pos_a -- '1' '0' '11.0' '5.7' '0.0' '0'"
 tmux select-pane -t 1
+tmux send-keys "echo 'mimic marvelmind_nav/hedge_rcv_bin or run that node if available'" C-m
+tmux send-keys "echo 'rosrun marvelmind_nav hedge_rcv_bin'" C-m
+tmux send-keys "rostopic pub -r 10 /hedge_pos_a marvelmind_nav/hedge_pos_a -- '5' '0' '16.0' '4.2' '0.0' '0'"
+tmux select-pane -t 2
 tmux send-keys "echo 'marvelmind localiser'" C-m
 tmux send-keys "rosrun rasberry_people_perception simple_marvel_localiser.py"
 
@@ -75,7 +81,7 @@ tmux send-keys "echo 'callarobot websocket client'" C-m
 tmux send-keys "WEBSOCKET_URL='wss://lcas.lincoln.ac.uk/car/ws' python $(rospack find rasberry_coordination)/callarobot/ws_client.py"
 tmux select-pane -t 1
 tmux send-keys "echo 'task scheduler'" C-m
-tmux send-keys "rosrun rasberry_coordination simple_task_executor_node.py"
+tmux send-keys "rosrun rasberry_coordination simple_task_executor_node.py $(rospack find rasberry_coordination)/config/map_config_norway_poles_sim.yaml"
 
 # Set default window
 tmux select-window -t $SESSION:1
