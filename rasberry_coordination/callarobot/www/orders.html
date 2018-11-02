@@ -1,0 +1,317 @@
+$def with (params, text, websocket_url)
+$var title: CallARobot - Orders
+$var jsfiles: 
+$var params: $:params
+
+
+<style>
+   #map {
+    height: 400px;
+    width: 100%;
+   }
+</style>
+
+<script>
+
+    map_api_key='AIzaSyBZkAPjdGvZFIi6LKkFB3rIrLzNUSN4ZVE'
+
+    markers = {};
+
+    function initMap(lat, long) {
+        var center = {lat: lat, lng: long};
+        console.log(center);
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 18,
+          center: center,
+          mapTypeId: 'satellite'
+        });
+        var marker = new google.maps.Marker({
+          position: center,
+          map: map,
+          label: "YOU"
+        });
+    }
+
+
+    function leave_state(user, s) {
+        var id = '#btn-' + user;
+        $$(id).removeAttr('onclick');
+        $$(id).prop('disabled', true);
+        $$(id).html("");
+        $$(id).removeClass('btn-success btn-danger btn-warning btn-default btn-primary');
+        switch(s) {
+            case 'CALLED':
+            case 'INIT':
+            default:
+                break;
+        }
+
+    }
+
+    function enter_state(user, s) {
+        var id = '#btn-' + user;
+        console.log(user+" "+id);
+        $$(id).prop('disabled', false);
+        switch(s) {
+            case 'BUTTON':
+                $$(id).html("$:text('Dash Button pressed. Accept!')");
+                $$(id).attr(
+                    'onClick',
+                    "send({'method':'set_state', state: 'ACCEPT','user': \""+user+"\"});"
+                );
+                $$(id).addClass('btn-success');
+                break;
+            case 'CALLED':
+                $$(id).html("$:text('Accept')");
+                $$(id).attr(
+                    'onClick',
+                    "send({'method':'set_state', state: 'ACCEPT','user': \""+user+"\"});"
+                );
+                $$(id).addClass('btn-success');
+                break;
+            case 'ACCEPT':
+                $$(id).html("$:text('click when arrived')");
+                $$(id).attr(
+                    'onClick',
+                    "send({'method':'set_state', state: 'ARRIVED','user': \""+user+"\"});"
+                );
+                $$(id).addClass('btn-warning');
+                break;
+            case 'ARRIVED':
+                $$(id).html("$:text('Arrived at picker. Click when loaded or wait.')");                
+                $$(id).attr(
+                    'onClick',
+                    "send({'method':'set_state', state: 'LOADED','user': \""+user+"\"});"
+                );
+                $$(id).addClass('btn-warning');
+                break;
+            case 'LOADED':
+                $$(id).html("$:text('Loaded. Click and return robot')");
+                $$(id).attr(
+                    'onClick',
+                    "send({'method':'set_state', state: 'INIT','user': \""+user+"\"});"
+                );
+                $$(id).addClass('btn-warning');
+                break;
+            case 'INIT':
+            default:
+                $$(id).html("$text('idle')");
+                $$(id).prop('disabled', true);
+        }
+
+    }
+
+    function transition(user, new_state) {
+        if (states[user] == undefined || new_state != states[user]) {
+            console.log('old state: ' + states[user]);
+            leave_state(user, states[user]);
+            states[user] = new_state;
+            enter_state(user, states[user]);        
+            console.log('new state: ' + states[user]);
+        }
+    }
+
+
+    function _update_position(data) {
+        var user = data['user'];
+        var lat = data['lat'];
+        var long = data['long'];
+        var pos = {lat: lat, lng: long};
+        if (markers[user] != undefined) {
+            markers[user].setMap(null);
+        }
+
+        markers[user] = new google.maps.Marker({
+          position: pos,
+          map: map,
+          label: user
+        });
+
+    }
+
+
+    function _update_orders(data) {
+        new_states = data['states'];
+        console.log('update orders');
+        for(var key in new_states) {
+            transition(key, new_states[key]);
+            $$('#state-' + key).html(new_states[key]);
+        }
+    }
+
+    function _add_log(data) {
+        var table = document.getElementById("logtable");
+
+        var row = table.insertRow(0);
+
+                // 'id': self.log_id,
+                // 'timestamp': int(ts),
+                // 'datetime': dt.strftime("%Y%m%d-%H%M%S"),
+                // 'user': user,
+                // 'uid': self.log_uid[user],
+                // 'state': state,
+                // 'latitude': latitude,
+                // 'longitude': longitude
+
+        row.innerHTML = "<td>" + data['user'] + "</td>"
+        row.innerHTML+= "<td>" + data['uid'] + "</td>"
+        row.innerHTML+= "<td>" + data['log_user'] + "</td>"
+        row.innerHTML+= "<td>" + data['datetime'] + "</td>"
+        row.innerHTML+= "<td>" + data['state'] + "</td>"
+    }
+
+    function _set_state(s) {
+    }
+
+    function get_states(){
+        send({
+            'method':'get_states'
+        });
+    }
+
+    function register() {
+        send({
+            'method':'register',
+            'admin': true,
+            'user': 'admin'
+        });
+        console.log("registered!");
+    }
+
+    document.onready = function() {
+        webnsock_init('$websocket_url');
+        socket.onopen = function () {
+          console.log("Connected!");
+          register();
+          get_states();
+        };
+    }
+
+    states = {};
+
+    function locInit() {
+        getLocation(initMap);
+    }
+
+</script>
+
+<script 
+    async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZkAPjdGvZFIi6LKkFB3rIrLzNUSN4ZVE&callback=locInit">
+</script>
+
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div  class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">$text('Orders')</h3>
+                    </div>
+                    
+                    <div class="panel-body">
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>State</th>
+                                    <th>Action</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                $for u in params['users']:
+                                    <tr>
+                                        <td class="col-xs-2">$u</td>
+                                        <td class="col-xs-2">
+                                            <p id="state-$u"></p>
+                                        </td>
+                                        <td class="col-xs-7">
+                                            <div class="btn-group2" role="group">
+                                                <button 
+                                                    id="btn-$u" 
+                                                    class="btn btn-block">
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="col-xs-1">
+                                            <div class="btn-group2" role="group">
+                                                <button 
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="send({
+                                                        'method':'set_state', 
+                                                        'state': 'INIT',
+                                                        'user': '$u'});">
+                                                    reset
+                                                </button>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Map</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Log</h3>
+                    </div>
+                    <div class="panel-body">
+                        <a href="/car/log">Download current log</a>
+                        <div style="height: 400px !important; overflow: scroll;">
+                            <table class="table table-condensed table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Order</th>
+                                        <th>Actor</th>
+                                        <th>Datetime</th>
+                                        <th>State</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="logtable">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
