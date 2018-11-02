@@ -1,0 +1,12 @@
+Source: ros-kinetic-rasberry-bringup
+Section: misc
+Priority: extra
+Maintainer: Marc Hanheide <marc@hanheide.net>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin, ros-kinetic-gazebo8-ros, ros-kinetic-marvelmind-nav, ros-kinetic-mongodb-store, ros-kinetic-persistent-topics, ros-kinetic-rasberry-coordination, ros-kinetic-rasberry-gazebo, ros-kinetic-rasberry-move-base, ros-kinetic-rasberry-navigation, ros-kinetic-rasberry-people-perception, ros-kinetic-rospy, ros-kinetic-rviz, ros-kinetic-thorvald-base, ros-kinetic-thorvald-model, ros-kinetic-thorvald-teleop, ros-kinetic-thorvald-twist-mux, ros-kinetic-urg-node, ros-kinetic-xsens-driver
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-rasberry-bringup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-gazebo8-ros, ros-kinetic-marvelmind-nav, ros-kinetic-mongodb-store, ros-kinetic-persistent-topics, ros-kinetic-rasberry-coordination, ros-kinetic-rasberry-gazebo, ros-kinetic-rasberry-move-base, ros-kinetic-rasberry-navigation, ros-kinetic-rasberry-people-perception, ros-kinetic-rospy, ros-kinetic-rviz, ros-kinetic-thorvald-base, ros-kinetic-thorvald-model, ros-kinetic-thorvald-teleop, ros-kinetic-thorvald-twist-mux, ros-kinetic-urg-node, ros-kinetic-xsens-driver
+Description: The rasberry_bringup package
